@@ -17,7 +17,7 @@ const APP = {
     //then display files
     //and then show all the current files
 
-
+    
 
   },
   addItem(ev) {
@@ -62,6 +62,8 @@ const APP = {
     });
     //and then save the response in the cache
     CACHE.open(request, response);
+    
+    
   },
   saveFile(filename, response) {
     //create a url or request object
@@ -72,8 +74,34 @@ const APP = {
     //and then update the list of files
   },
   getFiles() {
-    //display all the files in the cache
-    //loop through response matches and display the file names
+    //display all the files in the cache - DOM
+    //loop through response matches and display the file names - cache
+//console.log(`123`)
+
+        //the request argument can be a USVString, a URL object, or a Request object
+        //the options argument is optional. It is an object with 3 properties
+/*===         let options = {
+          ignoreSearch: true, 
+          ignoreMethod: true, 
+          ignoreVary: false, 
+        };
+        cache
+          .match(request, options) */
+/*           .then((response) => {
+
+            if(! response.ok) throw new Error(response.statusText);
+            return response.text();
+            return response.json();
+
+          }) */
+         //.then((obj) => {
+            //do something with the contents of the Response that was pulled from the Cache
+/*             console.log(`sucessfully retrive data ${obj}`)
+          }) */
+          /* .catch((err) => {
+            console.warn(err.message);
+          }) */;
+    
   },
   displayFiles(matches) {
     //show the file names from the cache as a list.
