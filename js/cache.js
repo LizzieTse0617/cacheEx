@@ -33,11 +33,7 @@ const CACHE = {
     caches.open(CACHE.cacheName).then((cache) => {
       cache.put(request, response);
 
-      console.log(cache);
-console.log(`123`)
-
-        //the request argument can be a USVString, a URL object, or a Request object
-        //the options argument is optional. It is an object with 3 properties
+      console.log(response)
         let options = {
           ignoreSearch: true, 
           ignoreMethod: true, 
@@ -49,12 +45,16 @@ console.log(`123`)
 
             if(! response.ok) throw new Error(response.statusText);
             return response.text();
-            return response.json();
+            //return response.json();
 
           })
         .then((obj) => {
-            //do something with the contents of the Response that was pulled from the Cach)
+            //do something with the contents of the Response that was pulled from the Cache
             console.log(`sucessfully retrive data ${obj}`)
+            let file_list = document.getElementById('file_list');
+            file_list.style.color= 'red';
+            let arr = request.url.split('/')
+console.log(`${arr[3]}.json`);
           }) 
           .catch((err) => {
             console.warn(err.message);
@@ -77,7 +77,6 @@ console.log(`123`)
 
 };
 export default CACHE;
-
 
 
 

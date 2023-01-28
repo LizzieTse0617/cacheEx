@@ -67,7 +67,7 @@ const APP = {
   },
   saveFile(filename, response) {
     //create a url or request object
-    //let request = new Request(`itemlist-${Date.now()}`);
+
     //save the file in the Cache
     //when file has been saved,
     //clear the displayed list
@@ -76,31 +76,6 @@ const APP = {
   getFiles() {
     //display all the files in the cache - DOM
     //loop through response matches and display the file names - cache
-//console.log(`123`)
-
-        //the request argument can be a USVString, a URL object, or a Request object
-        //the options argument is optional. It is an object with 3 properties
-/*===         let options = {
-          ignoreSearch: true, 
-          ignoreMethod: true, 
-          ignoreVary: false, 
-        };
-        cache
-          .match(request, options) */
-/*           .then((response) => {
-
-            if(! response.ok) throw new Error(response.statusText);
-            return response.text();
-            return response.json();
-
-          }) */
-         //.then((obj) => {
-            //do something with the contents of the Response that was pulled from the Cache
-/*             console.log(`sucessfully retrive data ${obj}`)
-          }) */
-          /* .catch((err) => {
-            console.warn(err.message);
-          }) */;
     
   },
   displayFiles(matches) {
