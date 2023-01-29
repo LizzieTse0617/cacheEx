@@ -8,77 +8,44 @@
 const CACHE = {
   cacheVersion: 1,
   cacheName: null, //this gets set in the init() method
-  userName: "lizzie0617", //replace this with your own username
+  userName: 'lizzie0617', //replace this with your own username
   init() {
     //
     //cacheName = key name for our cache
     CACHE.cacheName = `filecache-${CACHE.userName}-${CACHE.cacheVersion}`;
-    // caches
-    //   .open(CACHE.cacheName)
-    //   .then((cache) => {
-    //     let request = new Request(`./data/${APP.itemList}`);
-    //     let response = new Response(file, {
-    //       status: 200,
-    //       statusText: "Ok",
-    //     });
-    //     cache.put(request, response);
-    //   })
-    //   .catch(console.warn);
-
-    
-
-
   },
-  open(request, response) {
+
+  open(req, res) {
+    //cache open to access cache first and then use put method - adding to cache
     caches.open(CACHE.cacheName).then((cache) => {
-      cache.put(request, response);
+      cache.put(req, res);
 
-      console.log(response)
-        let options = {
-          ignoreSearch: true, 
-          ignoreMethod: true, 
-          ignoreVary: false, 
-        };
-        cache
-          .match(request, options)
-          .then((response) => {
-
-            if(! response.ok) throw new Error(response.statusText);
-            return response.text();
-            //return response.json();
-
-          })
-        .then((obj) => {
-            //do something with the contents of the Response that was pulled from the Cache
-            console.log(`sucessfully retrive data ${obj}`)
-            let file_list = document.getElementById('file_list');
-            file_list.style.color= 'red';
-            let arr = request.url.split('/')
-console.log(`${arr[3]}.json`);
-          }) 
-          .catch((err) => {
-            console.warn(err.message);
-          });
-
-  
-
-
-
-
-      
+      // console.log(req.url);
+      return req.url;
     });
 
+    //calling matchMethod
+    //CACHE.matchMethod(req, res);
+
+    caches
+      .match(req)
+      .then((matchResponse) => {
+        if (!matchResponse) throw new Error('bad file request');
+        //just like fetch   .json     .blob()    .text()    .arrayBuffer()
+        return matchResponse.text();
+      })
+      .then((contents) => {
+        document.body.innerHTML += contents;
+      })
+      .catch(console.warn);
+
+    return req.url;
   },
 
+  matchMethod(req) {
+    //cache open to access cache first and then use match method -- find the match
+  },
 
-//cache.delete
-
-
-
+  //cache.delete
 };
 export default CACHE;
-
-
-
-
-

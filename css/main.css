@@ -56,7 +56,16 @@ li {
 }
 #file_list {
   cursor: pointer;
+  list-style-type: none;
 }
-#file_list span:hover,
-#file_list li.active {
+
+.hidden{
+  display: none;
 }
+
+
+#file_list li:hover{
+  cursor: pointer;
+  color: orange;
+}
+
