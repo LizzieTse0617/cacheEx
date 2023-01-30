@@ -45,9 +45,20 @@ const CACHE = {
           })
           .then((contents) => {
             let file_list = document.getElementById('file_list');
-            file_list.innerHTML += contents;
 
-            console.log(contents);
+            //split & display correct file name
+            let reachingURL = req.url;
+            console.log(reachingURL);
+            let arr = reachingURL.split('-');
+            let li = document.createElement('li');
+            li.innerHTML = `<li><span>data-${arr[1]}.json</span><button data-ref="data-162342934893.json" class="delete">Delete File</button></li>`;
+            file_list.appendChild(li);
+            document.getElementById('no_file').classList.add('hidden');
+
+            //file_list.innerHTML += contents;
+
+            //console.log(contents);
+            //this content will be used later to display inside file content while clicking button
           })
           .catch(console.warn);
 
