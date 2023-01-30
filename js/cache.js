@@ -14,23 +14,17 @@ const CACHE = {
     //cacheName = key name for our cache
     CACHE.cacheName = `filecache-${CACHE.userName}-${CACHE.cacheVersion}`;
   },
-
   open(req, res) {
-    //cache open to access cache first and then use put method - adding to cache
     caches.open(CACHE.cacheName).then((cache) => {
       cache.put(req, res);
-
-      // console.log(req.url);
-      return req.url;
     });
 
-    //calling matchMethod
-    //CACHE.matchMethod(req, res);
-
+    //let req = new Request(`itemlist-${APP.itemList}`);
     caches
       .match(req)
       .then((matchResponse) => {
         if (!matchResponse) throw new Error('bad file request');
+        console.log('found');
         //just like fetch   .json     .blob()    .text()    .arrayBuffer()
         return matchResponse.text();
       })
@@ -39,11 +33,21 @@ const CACHE = {
       })
       .catch(console.warn);
 
-    return req.url;
-  },
+    caches
+      .open(CACHE.cacheName)
+      .then((cache) => {
+        return cache.keys();
+      })
 
-  matchMethod(req) {
-    //cache open to access cache first and then use match method -- find the match
+      //listOfRequests = all your file name
+      .then((listOfRequests) => {
+        //doing match method here
+        //extract the url here
+        listOfRequests.forEach((request) => {
+          let url = new URL(request.url);
+          console.log(url.pathname);
+        });
+      });
   },
 
   //cache.delete

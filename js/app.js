@@ -24,7 +24,7 @@ const APP = {
     item = item.trim();
     if (!item) return;
     APP.itemList.push(item);
-    APP.displayList();
+    APP.displayList(CACHE.cacheName);
   },
   displayList() {
     //populate the list of items
@@ -52,7 +52,7 @@ const APP = {
     //and then create a response object to hold the file
     //let request = new Request(`./data/${APP.itemList}`);
 
-    let req = new Request(`itemlist-${Date.now()}`);
+    let req = new Request(`itemlist-${APP.itemList}`);
     let res = new Response(file, {
       status: 200,
       statusText: 'Ok',
@@ -60,40 +60,23 @@ const APP = {
     //and then save the response in the cache
     CACHE.open(req, res);
 
-    CACHE.matchMethod(req);
-
-    let URL = req.url;
-    APP.displayFiles(URL);
-
-    APP.saveFile();
+    APP.displayFiles();
   },
   saveFile(filename, response) {
     //create a url or request object
     //let request = new Request(`itemlist-${Date.now()}`);
     //save the file in the Cache
     //when file has been saved,
-
     //clear the displayed list
-    let list = document.getElementById('item_list');
-    while (list.firstChild) {
-      list.removeChild(list.firstChild);
-    }
     //and then update the list of files
   },
-  getFiles(fileName) {
+  getFiles() {
     //display all the files in the cache
     //loop through response matches and display the file names
   },
-  displayFiles(URL) {
+  displayFiles() {
     //show the file names from the cache as a list.
-    let arr = URL.split('-');
-    let list = document.getElementById('file_list');
-    let li = document.createElement('li');
-    li.innerHTML = `<li><span>data-${arr[1]}.json</span><button data-ref="data-162342934893.json" class="delete">Delete File</button></li>`;
-    list.appendChild(li);
-
-    document.getElementById('no_file').classList.add('hidden');
-
+    //each list item contains a span for the file name plus a button for deleting the file from the cache
     //displayFileContents(ev);
     //deleteFile(ev);
   },
@@ -106,7 +89,7 @@ const APP = {
 
     //*** */cache.delete(reference) + DOM will disappend
     //user has clicked on a button in the file list
-    //delete the file from the cache using the file name ---- require delete method
+    //delete the file from the cache using the file name
     //remove the list item from the list if successful
     //clear the code contents
   },
