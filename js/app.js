@@ -61,14 +61,20 @@ const APP = {
     //and then save the response in the cache
     CACHE.open(req, res);
 
-    APP.displayFiles();
+    APP.saveFile();
+
+    //APP.displayFileContents();
   },
-  saveFile(filename, response) {
+  saveFile() {
     //create a url or request object
     //let request = new Request(`itemlist-${Date.now()}`);
     //save the file in the Cache
     //when file has been saved,
     //clear the displayed list
+    let list = document.getElementById('item_list');
+    while (list.firstChild) {
+      list.removeChild(list.firstChild);
+    }
     //and then update the list of files
   },
   getFiles() {
@@ -83,6 +89,16 @@ const APP = {
   },
   displayFileContents(ev) {
     //get the list item from the file
+    console.log('found span');
+    /* ev.preventDefault();
+    console.log(newlyJSONfile, content);
+    console.log(`${newlyJSONfile},${content}`);
+    //console.log('hehe');
+    let displayFileName = document.getElementById('data_display_fileName');
+    displayFileName.innerHTML = `${newlyJSONfile}`;
+    let data_display_content = document.getElementById('data_display_content');
+    data_display_content.innerHTML = `${content}`; */
+
     //and show its contents in the <pre><code> area
   },
   deleteFile(ev) {
