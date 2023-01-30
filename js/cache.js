@@ -18,14 +18,10 @@ const CACHE = {
     caches.open(CACHE.cacheName).then((cache) => {
       cache.put(req, res);
     });
-
-    //let req = new Request(`itemlist-${APP.itemList}`);
     caches
       .match(req)
       .then((matchResponse) => {
         if (!matchResponse) throw new Error('bad file request');
-        console.log('found');
-        //just like fetch   .json     .blob()    .text()    .arrayBuffer()
         return matchResponse.text();
       })
       .then((contents) => {
@@ -39,9 +35,22 @@ const CACHE = {
         return cache.keys();
       })
 
-      //listOfRequests = all your file name
       .then((listOfRequests) => {
-        //doing match method here
+        caches
+          .match(req)
+          .then((matchResponse) => {
+            if (!matchResponse) throw new Error('bad file request');
+            //just like fetch   .json     .blob()    .text()    .arrayBuffer()
+            return matchResponse.text();
+          })
+          .then((contents) => {
+            let file_list = document.getElementById('file_list');
+            file_list.innerHTML += contents;
+
+            console.log(contents);
+          })
+          .catch(console.warn);
+
         //extract the url here
         listOfRequests.forEach((request) => {
           let url = new URL(request.url);

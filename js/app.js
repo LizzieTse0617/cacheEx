@@ -49,10 +49,11 @@ const APP = {
       type: 'text/plain',
       lastModified: Date.now(),
     });
-    //and then create a response object to hold the file
-    //let request = new Request(`./data/${APP.itemList}`);
 
-    let req = new Request(`itemlist-${APP.itemList}`);
+    let today = Date.now();
+    let singleCache = `itemlist-${today}`;
+
+    let req = new Request(`${singleCache}`);
     let res = new Response(file, {
       status: 200,
       statusText: 'Ok',
