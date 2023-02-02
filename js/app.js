@@ -18,13 +18,11 @@ const APP = {
     //step2 (functoin addItem & displayList)
     APP.addItem(CACHE.cacheName);
 
-    //let the HTML disseapear in box2
-    APP.saveFile();
-
     //also insert CACHE.open(req,res)
     APP.saveListAsFile();
 
-    APP.displayFiles();
+    //let the HTML disseapear in box2
+    APP.saveFile();
   },
 
   //DOM-step1 - adding item into cache
@@ -66,25 +64,22 @@ const APP = {
     });
 
     CACHE.open(req, res);
-    CACHE.second(req, res);
+    CACHE.match(req, res);
   },
 
   saveFile() {
-    let list = document.getElementById('item_list');
+    /*  let list = document.getElementById('item_list');
     while (list.firstChild) {
+      console.log('no more');
       list.removeChild(list.firstChild);
-    }
-
+    } */
     //and then update the list of files
   },
   getFiles() {
     //display all the files in the cache
     //loop through response matches and display the file names
   },
-  displayFiles() {
-    //CACHE.second();
-    console.log();
-  },
+  displayFiles() {},
 
   displayFileContents(req) {
     //ev.preventDefault();

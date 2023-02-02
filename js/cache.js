@@ -15,7 +15,7 @@ const CACHE = {
     });
   },
 
-  second(req) {
+  match(req) {
     caches
       .open(CACHE.cacheName)
       .then((cache) => {
@@ -30,6 +30,7 @@ const CACHE = {
             return matchResponse.text();
           })
           .then((contents) => {
+            console.log(`${contents}+ 123`);
             let file_list = document.getElementById('file_list');
             let reachingURL = req.url;
             let arr = reachingURL.split('-');
@@ -42,7 +43,10 @@ const CACHE = {
             li.innerHTML = `${newlyJSONfile}<button id="${fileId}-delete" class="delete">Delete File</button></li>`;
             file_list.appendChild(li);
 
-            document.getElementById('no_file').classList.add('hidden');
+            let no_file = document.getElementById('no_file');
+            if (no_file) {
+              no_file.classList.add('hidden');
+            }
 
             item_list.innerHTML = '';
             li.setAttribute('id', `${fileId}`);
@@ -80,8 +84,6 @@ const CACHE = {
     CACHE.deleteFile(fileId);
   },
 
-  //fileId = fileName
-
   deleteFile(fileId) {
     let delete_btn = document.getElementById(`${fileId}-delete`);
     delete_btn.addEventListener('click', (ev) => {
@@ -96,9 +98,8 @@ const CACHE = {
         return cache.delete(`/itemlist-${fileId}`);
       })
       .then(() => {
-        document.getElementById('file_list').innerHTML = '';
-
-        //as well as file content
+        console.log(`${fileId} is deleted`);
+        document.getElementById(`${fileId}`).innerHTML = '';
         document.getElementById('data_display_fileName').innerHTML = '';
         document.getElementById('data_display_content').innerHTML = '';
       });
