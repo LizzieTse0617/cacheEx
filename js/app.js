@@ -4,30 +4,39 @@ const APP = {
   itemList: [],
   activeLI: '',
   init() {
-    //page loaded
     document.getElementById('itemForm').addEventListener('submit', APP.addItem);
+
     document.getElementById('btnItem').addEventListener('click', APP.addItem);
+
     document
       .getElementById('btnList')
       .addEventListener('click', APP.saveListAsFile);
-    //access the cache
-    CACHE.init('lizzie');
-    //then display files
-    //and then show all the current files
+
+    //step1
+    CACHE.init();
+
+    //step2 (functoin addItem & displayList)
+    APP.addItem(CACHE.cacheName);
+
+    //let the HTML disseapear in box2
+    APP.saveFile();
+
+    //also insert CACHE.open(req,res)
+    APP.saveListAsFile();
+
+    APP.displayFiles();
   },
+
+  //DOM-step1 - adding item into cache
   addItem(ev) {
-    //add an item to the list
-    ev.preventDefault();
     let item = document.getElementById('gItem').value;
     item = item.trim();
     if (!item) return;
     APP.itemList.push(item);
     APP.displayList(CACHE.cacheName);
-
-    console.log('step1 - btn activtate - additem');
   },
+
   displayList() {
-    //populate the list of items
     let list = document.getElementById('item_list');
     if (APP.itemList.length === 0) {
       list.innerHTML = 'No Items currently.';
@@ -37,12 +46,12 @@ const APP = {
           return `<li>${txt}</li>`;
         })
         .join('');
-      console.log('step2 - additem to list');
     }
     document.getElementById('gItem').value = '';
   },
+
   saveListAsFile(ev) {
-    ev.preventDefault();
+    //ev.preventDefault();
     let json = JSON.stringify(APP.itemList);
     let file = new File([json], 'isTheJsonFile', {
       type: 'text/plain',
@@ -57,17 +66,10 @@ const APP = {
     });
 
     CACHE.open(req, res);
-
-    APP.saveFile();
+    CACHE.second(req, res);
   },
 
   saveFile() {
-    console.log('step3 - file goes to cache');
-    //create a url or request object
-
-    //save the file in the Cache
-    //when file has been saved,
-    //clear the displayed list
     let list = document.getElementById('item_list');
     while (list.firstChild) {
       list.removeChild(list.firstChild);
@@ -80,13 +82,11 @@ const APP = {
     //loop through response matches and display the file names
   },
   displayFiles() {
-    //show the file names from the cache as a list.
-    //each list item contains a span for the file name plus a button for deleting the file from the cache
-    //displayFileContents(ev);
-    //deleteFile(ev);
+    //CACHE.second();
+    console.log();
   },
 
-  displayFileContents() {
+  displayFileContents(req) {
     //ev.preventDefault();
     //get the list item from the file
     /* 
