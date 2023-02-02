@@ -1,10 +1,8 @@
 import CACHE from './cache.js';
-//All the DOM functionality and control of the application happens in this file
-//All the code dealing with the Cache is in the cache.js file.
+
 const APP = {
   itemList: [],
   activeLI: '',
-  // cacheName: "myCache-v1",
   init() {
     //page loaded
     document.getElementById('itemForm').addEventListener('submit', APP.addItem);
@@ -13,7 +11,7 @@ const APP = {
       .getElementById('btnList')
       .addEventListener('click', APP.saveListAsFile);
     //access the cache
-    CACHE.init('asdhjasd');
+    CACHE.init('lizzie');
     //then display files
     //and then show all the current files
   },
@@ -25,6 +23,8 @@ const APP = {
     if (!item) return;
     APP.itemList.push(item);
     APP.displayList(CACHE.cacheName);
+
+    console.log('step1 - btn activtate - additem');
   },
   displayList() {
     //populate the list of items
@@ -37,37 +37,34 @@ const APP = {
           return `<li>${txt}</li>`;
         })
         .join('');
+      console.log('step2 - additem to list');
     }
     document.getElementById('gItem').value = '';
   },
   saveListAsFile(ev) {
     ev.preventDefault();
-    //turn the data from the list into the contents for a json file
     let json = JSON.stringify(APP.itemList);
-    //and then create a file with the json
     let file = new File([json], 'isTheJsonFile', {
       type: 'text/plain',
       lastModified: Date.now(),
     });
-
     let today = Date.now();
     let singleCache = `itemlist-${today}`;
-
     let req = new Request(`${singleCache}`);
     let res = new Response(file, {
       status: 200,
       statusText: 'Ok',
     });
-    //and then save the response in the cache
+
     CACHE.open(req, res);
 
     APP.saveFile();
-
-    //APP.displayFileContents();
   },
+
   saveFile() {
+    console.log('step3 - file goes to cache');
     //create a url or request object
-    //let request = new Request(`itemlist-${Date.now()}`);
+
     //save the file in the Cache
     //when file has been saved,
     //clear the displayed list
@@ -75,6 +72,7 @@ const APP = {
     while (list.firstChild) {
       list.removeChild(list.firstChild);
     }
+
     //and then update the list of files
   },
   getFiles() {
@@ -87,24 +85,17 @@ const APP = {
     //displayFileContents(ev);
     //deleteFile(ev);
   },
-  displayFileContents(ev) {
-    //get the list item from the file
-    console.log('found span');
-    /* ev.preventDefault();
-    console.log(newlyJSONfile, content);
-    console.log(`${newlyJSONfile},${content}`);
-    //console.log('hehe');
-    let displayFileName = document.getElementById('data_display_fileName');
-    displayFileName.innerHTML = `${newlyJSONfile}`;
-    let data_display_content = document.getElementById('data_display_content');
-    data_display_content.innerHTML = `${content}`; */
 
+  displayFileContents() {
+    //ev.preventDefault();
+    //get the list item from the file
+    /* 
     //and show its contents in the <pre><code> area
   },
   deleteFile(ev) {
     ev.preventDefault();
 
-    //*** */cache.delete(reference) + DOM will disappend
+    //*** */
     //user has clicked on a button in the file list
     //delete the file from the cache using the file name
     //remove the list item from the list if successful

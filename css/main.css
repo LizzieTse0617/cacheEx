@@ -9,21 +9,26 @@ html {
 }
 body {
   min-height: 100vh;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 header {
   background-color: #222;
   color: #eee;
-  padding: 1rem 2rem;
+  padding: 1rem;
+  margin:0;
 }
 h1,
 h2 {
   /* Add font stack */
-  font-size: 3rem;
+  font-size: 1.2rem;
   color: #fff;
   background-color: #333;
+padding:1rem;
+
 }
 main {
-  padding: 1rem 2rem;
+  margin:0;
+  padding:0;
 }
 /* Add other CSS to customize the interface and make it your own */
 
@@ -59,6 +64,20 @@ li {
   list-style-type: none;
 }
 
+.data_entry, .data_files ,.data_display{
+  padding-bottom:3rem;
+}
+
+.data_entry{
+  background-color:#EEF7F6 ;
+}
+.data_files{
+  background-color:#B2F7EF ;
+}
+.data_display{
+  background-color:#7BDFF2 ;
+}
+
 .hidden{
   display: none;
 }
@@ -69,3 +88,13 @@ li {
   color: orange;
 }
 
+#data_display_fileName{
+  color: orange;
+  font-size:1rem;
+  text-decoration: underline;
+}
+
+#data_display_content{
+  color: red;
+  padding:1rem 0;
+}
