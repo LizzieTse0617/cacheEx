@@ -30,7 +30,6 @@ const CACHE = {
             return matchResponse.text();
           })
           .then((contents) => {
-            console.log(`${contents}+ 123`);
             let file_list = document.getElementById('file_list');
             let reachingURL = req.url;
             let arr = reachingURL.split('-');
@@ -98,7 +97,6 @@ const CACHE = {
         return cache.delete(`/itemlist-${fileId}`);
       })
       .then(() => {
-        console.log(`${fileId} is deleted`);
         document.getElementById(`${fileId}`).innerHTML = '';
         document.getElementById('data_display_fileName').innerHTML = '';
         document.getElementById('data_display_content').innerHTML = '';
