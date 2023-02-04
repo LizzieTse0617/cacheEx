@@ -94,7 +94,7 @@ const CACHE = {
     caches
       .open(CACHE.cacheName)
       .then((cache) => {
-        return cache.delete(`/itemlist-${fileId}`);
+        return cache.delete(`/cacheEx/itemlist-${fileId}`);
       })
       .then(() => {
         document.getElementById(`${fileId}`).innerHTML = '';
