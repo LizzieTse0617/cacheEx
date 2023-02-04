@@ -56,7 +56,7 @@ const APP = {
       lastModified: Date.now(),
     });
     let today = Date.now();
-    let singleCache = `itemlist-${today}`;
+    let singleCache = `/cacheEx/itemlist-${today}`;
     let req = new Request(`${singleCache}`);
     let res = new Response(file, {
       status: 200,
